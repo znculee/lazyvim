@@ -32,6 +32,7 @@ return {
           "--no-error-summary",
           "--no-pretty",
           "--check-untyped-defs",
+          "--ignore-missing-imports",
         },
         parser = require("lint.linters.mypy").parser,
       },
