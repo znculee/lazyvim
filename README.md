@@ -16,3 +16,7 @@ Personal [neovim](https://neovim.io) config built on [LazyVim](https://lazyvim.g
   ```bash
   brew install --cask font-fira-code-nerd-font
   ```
+
+## Tips
+
+- [Project specific configurations in LazyVim with `.lazy.lua`](https://kezhenxu94.me/blog/lazyvim-project-specific-settings)
