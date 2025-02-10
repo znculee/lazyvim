@@ -7,3 +7,4 @@ vim.g.autoformat = false
 local opt = vim.opt
 opt.wrap = true
 opt.clipboard = "unnamedplus"
+opt.relativenumber = false
