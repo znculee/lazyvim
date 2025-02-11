@@ -3,6 +3,7 @@ return {
   opts = {
     linters_by_ft = {
       python = { "pylint", "mypy" },
+      markdown = {},
     },
     linters = {
       pylint = {
