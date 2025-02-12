@@ -1,7 +1,6 @@
-local ollama_model = os.getenv("OLLAMA_MODEL")
-
 return {
   "olimorris/codecompanion.nvim",
+  event = "VeryLazy",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
@@ -31,11 +30,23 @@ return {
           name = "ollama",
           schema = {
             model = {
-              default = ollama_model,
+              default = os.getenv("OLLAMA_MODEL"),
             },
           },
         })
       end,
     },
+    opts = {
+      system_prompt = function()
+        return ""
+      end,
+    },
+  },
+  keys = {
+    { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
+    { "<leader>an", "<cmd>CodeCompanionChat<cr>", mode = { "n", "v" }, desc = "New Chat" },
+    { "<leader>aa", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" }, desc = "Toggle Chat" },
+    { "<leader>ac", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "Add Code to Chat" },
+    { "<leader>ai", "<cmd>CodeCompanion<cr>", mode = { "n", "v" }, desc = "Inline Prompt" },
   },
 }
