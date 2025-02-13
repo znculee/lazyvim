@@ -2,9 +2,18 @@ return {
   "olimorris/codecompanion.nvim",
   event = "VeryLazy",
   dependencies = {
-    "nvim-lua/plenary.nvim",
-    "nvim-treesitter/nvim-treesitter",
-    "j-hui/fidget.nvim",
+    { "nvim-lua/plenary.nvim" },
+    { "nvim-treesitter/nvim-treesitter" },
+    {
+      "j-hui/fidget.nvim",
+      opts = {
+        notification = {
+          window = {
+            winblend = 0, -- https://github.com/j-hui/fidget.nvim/issues/11
+          },
+        },
+      },
+    },
   },
   init = function()
     require("plugins.codecompanion.fidget-spinner"):init()
