@@ -16,7 +16,12 @@ return {
           "--max-line-length",
           "120",
           "--disable",
-          "W1203,C0103,C0114,C0115,C0116,R0913,R0914",
+          table.concat({
+            "e1101",
+            "w1203",
+            "c0103,c0114,c0115,c0116",
+            "r0913,r0914",
+          }, ","),
         },
         parser = require("lint.linters.pylint").parser,
       },
