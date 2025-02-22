@@ -16,7 +16,6 @@ opt.autoindent = true
 opt.smarttab = true
 opt.wrap = true
 opt.breakindent = true
-opt.colorcolumn = "120"
 opt.textwidth = 79
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
