@@ -1,8 +1,20 @@
+local ruff = require("lint").linters.ruff
+ruff.condition = function() ---@diagnostic disable-line
+  return vim.fn.executable("ruff") == 1
+end
+
+local mypy = require("lint").linters.mypy
+table.insert(mypy.args, "--check-untyped-defs")
+table.insert(mypy.args, "--ignore-missing-imports")
+mypy.condition = function() ---@diagnostic disable-line
+  return vim.fn.executable("mypy") == 1
+end
+
 return {
   "mfussenegger/nvim-lint",
   opts = {
     linters_by_ft = {
-      python = { "pylint", "mypy" },
+      python = { "ruff", "pylint", "mypy" },
       markdown = {},
     },
     linters = {
@@ -24,23 +36,9 @@ return {
           }, ","),
         },
         parser = require("lint.linters.pylint").parser,
-      },
-      mypy = {
-        cmd = "mypy",
-        stdin = false,
-        stream = "both",
-        ignore_exitcode = true,
-        args = {
-          "--show-column-numbers",
-          "--show-error-end",
-          "--hide-error-context",
-          "--no-color-output",
-          "--no-error-summary",
-          "--no-pretty",
-          "--check-untyped-defs",
-          "--ignore-missing-imports",
-        },
-        parser = require("lint.linters.mypy").parser,
+        condition = function()
+          return vim.fn.executable("pylint") == 1
+        end,
       },
     },
   },
