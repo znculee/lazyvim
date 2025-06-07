@@ -21,7 +21,7 @@ return {
   opts = {
     strategies = {
       chat = {
-        adapter = "ollama",
+        adapter = os.getenv("CODECOMPANION_ADAPTER"),
         slash_commands = {
           ["file"] = {
             callback = "strategies.chat.slash_commands.file",
@@ -34,7 +34,10 @@ return {
         },
       },
       inline = {
-        adapter = "ollama",
+        adapter = os.getenv("CODECOMPANION_ADAPTER"),
+      },
+      cmd = {
+        adapter = os.getenv("CODECOMPANION_ADAPTER"),
       },
     },
     adapters = {
@@ -44,6 +47,26 @@ return {
           schema = {
             model = {
               default = os.getenv("OLLAMA_MODEL"),
+            },
+          },
+        })
+      end,
+      openai = function()
+        return require("codecompanion.adapters").extend("openai", {
+          name = "openai",
+          schema = {
+            model = {
+              default = "gpt-4o",
+            },
+          },
+        })
+      end,
+      gemini = function()
+        return require("codecompanion.adapters").extend("gemini", {
+          name = "gemini",
+          schema = {
+            model = {
+              default = "gemini-2.0-flash",
             },
           },
         })
