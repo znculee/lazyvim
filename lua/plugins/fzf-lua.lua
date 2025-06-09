@@ -2,7 +2,7 @@ return {
   "ibhagwan/fzf-lua",
   keys = {
     {
-      "<leader>fp",
+      "<c-x><c-f>",
       function()
         require("fzf-lua").files({
           file_icons = false,
@@ -11,11 +11,13 @@ return {
             ["default"] = function(selected)
               local path = selected[1]
               vim.api.nvim_put({ path }, "", true, true)
+              vim.api.nvim_feedkeys("a", "n", false)
             end,
           },
         })
       end,
-      desc = "Insert file path at cursor",
+      desc = "Complete file names",
+      mode = "i",
     },
   },
 }
