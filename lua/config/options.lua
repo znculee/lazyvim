@@ -17,19 +17,3 @@ opt.smarttab = true
 opt.wrap = true
 opt.breakindent = true
 opt.textwidth = 79
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*",
-  command = "set fo-=t fo-=c fo+=q",
-})
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "text", "markdown", "tex", "help", "json" },
-  command = "setlocal cc= lbr",
-})
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "text", "markdown", "gitcommit", "vim", "sh", "html", "css" },
-  command = "setlocal ts=2",
-})
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "asm",
-  command = "setlocal ts=8 ft=nasm",
-})
