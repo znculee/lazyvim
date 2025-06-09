@@ -5,8 +5,8 @@ return {
       "<leader>fp",
       function()
         require("fzf-lua").files({
-          file_icons = false, -- disable the devicons prefix
-          git_icons = false, -- (optional) disable git‐status glyphs
+          file_icons = false,
+          git_icons = false,
           actions = {
             ["default"] = function(selected)
               local path = selected[1]
