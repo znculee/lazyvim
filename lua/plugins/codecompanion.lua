@@ -42,11 +42,14 @@ return {
     },
     adapters = {
       ollama = function()
-        return require("codecompanion.adapters").extend("ollama", {
+        return require("codecompanion.adapters").extend("openai_compatible", {
           name = "ollama",
+          env = {
+            url = os.getenv("CODECOMPANION_OLLAMA_URL"),
+          },
           schema = {
             model = {
-              default = os.getenv("OLLAMA_MODEL"),
+              default = os.getenv("CODECOMPANION_OLLAMA_MODEL"),
             },
           },
         })
