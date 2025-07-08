@@ -45,11 +45,24 @@ return {
         return require("codecompanion.adapters").extend("openai_compatible", {
           name = "ollama",
           env = {
-            url = os.getenv("CODECOMPANION_OLLAMA_URL"),
+            url = "http://127.0.0.1:11434",
           },
           schema = {
             model = {
               default = os.getenv("CODECOMPANION_OLLAMA_MODEL"),
+            },
+          },
+        })
+      end,
+      ollama_11211 = function()
+        return require("codecompanion.adapters").extend("openai_compatible", {
+          name = "ollama_11211",
+          env = {
+            url = "http://127.0.0.1:11211/api/openai",
+          },
+          schema = {
+            model = {
+              default = os.getenv("CODECOMPANION_OLLAMA_11211_MODEL"),
             },
           },
         })
