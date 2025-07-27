@@ -42,3 +42,13 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.filetype = "nasm"
   end,
 })
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.opt.diff:get() then
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        vim.api.nvim_set_option_value("wrap", true, { win = win })
+      end
+    end
+  end,
+})
