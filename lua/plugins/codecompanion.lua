@@ -72,17 +72,7 @@ return {
           name = "openai",
           schema = {
             model = {
-              default = "gpt-4o",
-            },
-          },
-        })
-      end,
-      gemini = function()
-        return require("codecompanion.adapters").extend("gemini", {
-          name = "gemini",
-          schema = {
-            model = {
-              default = "gemini-2.0-flash",
+              default = os.getenv("CODECOMPANION_OPENAI_MODEL"),
             },
           },
         })
