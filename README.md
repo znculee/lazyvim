@@ -4,6 +4,11 @@ Personal [neovim](https://neovim.io) config built on [LazyVim](https://lazyvim.g
 
 ## Setup
 
+- [tokyonight_moon.itermcolors](https://github.com/folke/tokyonight.nvim/blob/main/extras/iterm/tokyonight_moon.itermcolors)
+- [FiraCode Nerd Font](https://formulae.brew.sh/cask/font-fira-code-nerd-font#default)
+  ```bash
+  brew install --cask font-fira-code-nerd-font
+  ```
 - backup
   ```bash
   mv ~/.config/nvim{,.bak}
@@ -11,10 +16,12 @@ Personal [neovim](https://neovim.io) config built on [LazyVim](https://lazyvim.g
   mv ~/.local/state/nvim{,.bak}
   mv ~/.cache/nvim{,.bak}
   ```
-- [tokyonight_moon.itermcolors](https://github.com/folke/tokyonight.nvim/blob/main/extras/iterm/tokyonight_moon.itermcolors)
-- [FiraCode Nerd Font](https://formulae.brew.sh/cask/font-fira-code-nerd-font#default)
+- install
   ```bash
-  brew install --cask font-fira-code-nerd-font
+  cd /path/to/repos
+  git clone git@github.com:znculee/lazyvim.git
+  cd ~/.config
+  ln -s /path/to/repos/lazyvim nvim
   ```
 
 ## Tips
