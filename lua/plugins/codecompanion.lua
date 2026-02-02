@@ -19,9 +19,9 @@ return {
     require("plugins.codecompanion.fidget-spinner"):init()
   end,
   opts = {
-    strategies = {
+    interactions = {
       chat = {
-        adapter = os.getenv("CODECOMPANION_ADAPTER"),
+        adapter = "ollama",
         slash_commands = {
           ["file"] = {
             callback = "strategies.chat.slash_commands.file",
@@ -32,12 +32,15 @@ return {
             },
           },
         },
+        opts = {
+          system_prompt = "",
+        },
       },
       inline = {
-        adapter = os.getenv("CODECOMPANION_ADAPTER"),
+        adapter = "ollama",
       },
       cmd = {
-        adapter = os.getenv("CODECOMPANION_ADAPTER"),
+        adapter = "ollama",
       },
     },
     adapters = {
@@ -53,34 +56,6 @@ return {
             },
           },
         })
-      end,
-      ollama_11211 = function()
-        return require("codecompanion.adapters").extend("openai_compatible", {
-          name = "ollama_11211",
-          env = {
-            url = "http://127.0.0.1:11211/api/openai",
-          },
-          schema = {
-            model = {
-              default = os.getenv("CODECOMPANION_OLLAMA_11211_MODEL"),
-            },
-          },
-        })
-      end,
-      openai = function()
-        return require("codecompanion.adapters").extend("openai", {
-          name = "openai",
-          schema = {
-            model = {
-              default = os.getenv("CODECOMPANION_OPENAI_MODEL"),
-            },
-          },
-        })
-      end,
-    },
-    opts = {
-      system_prompt = function()
-        return ""
       end,
     },
   },
