@@ -30,15 +30,19 @@ Personal [neovim](https://neovim.io) config built on [LazyVim](https://lazyvim.g
 
 ## Troubleshooting
 
-If encounter issues after upgrading:
-
-```bash
-# Test with clean config
-nvim --clean
-
-# Clear Tree-sitter parsers
-rm -rf ~/.local/share/nvim/site/parser
-
-# Clear cache and data
-rm -rf ~/.cache/nvim ~/.local/share/nvim
-```
+- Test with clean config
+  ```bash
+  nvim --clean
+  ```
+- Clear Tree-sitter parsers and queries
+  ```bash
+  rm -rf ~/.local/share/nvim/site/parser ~/.local/share/nvim/site/queries
+  ```
+- Clear cache and data
+  ```bash
+  rm -rf ~/.cache/nvim ~/.local/share/nvim
+  ```
+- Check health
+  ```bash
+  :checkhealth nvim-treesitter
+  ```
