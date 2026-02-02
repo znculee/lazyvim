@@ -27,3 +27,18 @@ Personal [neovim](https://neovim.io) config built on [LazyVim](https://lazyvim.g
 ## Tips
 
 - [Project specific configurations in LazyVim with `.lazy.lua`](https://kezhenxu94.me/blog/lazyvim-project-specific-settings)
+
+## Troubleshooting
+
+If encounter issues after upgrading:
+
+```bash
+# Test with clean config
+nvim --clean
+
+# Clear Tree-sitter parsers
+rm -rf ~/.local/share/nvim/site/parser
+
+# Clear cache and data
+rm -rf ~/.cache/nvim ~/.local/share/nvim
+```
