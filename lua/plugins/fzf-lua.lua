@@ -19,5 +19,7 @@ return {
       desc = "Complete file names",
       mode = "i",
     },
+    { "<leader>sb", "<cmd>FzfLua blines<cr>", mode = { "n" }, desc = "Current Buffer Lines" },
+    { "<leader>sB", "<cmd>FzfLua lines<cr>", mode = { "n" }, desc = "All Buffer Lines" },
   },
 }
