@@ -16,6 +16,10 @@ Personal [neovim](https://neovim.io) config built on [LazyVim](https://lazyvim.g
   mv ~/.local/state/nvim{,.bak}
   mv ~/.cache/nvim{,.bak}
   ```
+- [tree-sitter](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md)
+  ```bash
+  cargo install --locked tree-sitter-cli
+  ```
 - install
   ```bash
   cd /path/to/repos
@@ -33,10 +37,6 @@ Personal [neovim](https://neovim.io) config built on [LazyVim](https://lazyvim.g
 - Test with clean config
   ```bash
   nvim --clean
-  ```
-- Clear Tree-sitter parsers and queries
-  ```bash
-  rm -rf ~/.local/share/nvim/site/parser ~/.local/share/nvim/site/queries
   ```
 - Clear cache and data
   ```bash
