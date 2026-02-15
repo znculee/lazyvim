@@ -24,7 +24,7 @@ return {
         adapter = "ollama",
         slash_commands = {
           ["file"] = {
-            callback = "strategies.chat.slash_commands.file",
+            callback = "interactions.chat.slash_commands.builtin.file",
             description = "Select a file using Telescope",
             opts = {
               provider = "fzf_lua",
