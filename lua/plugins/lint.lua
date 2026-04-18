@@ -3,11 +3,13 @@ ruff.condition = function() ---@diagnostic disable-line
   return vim.fn.executable("ruff") == 1
 end
 
+local has_ty = vim.fn.executable("ty") == 1
+
 local mypy = require("lint").linters.mypy
 table.insert(mypy.args, "--check-untyped-defs")
 table.insert(mypy.args, "--ignore-missing-imports")
 mypy.condition = function() ---@diagnostic disable-line
-  return vim.fn.executable("mypy") == 1
+  return not has_ty and vim.fn.executable("mypy") == 1
 end
 
 return {
