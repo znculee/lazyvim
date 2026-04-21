@@ -9,7 +9,7 @@ return {
       -- python
       "black",
       "isort",
-      "pyright",
+      "ty",
 
       -- shell
       "shellcheck",
