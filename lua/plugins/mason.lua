@@ -7,8 +7,6 @@ return {
       "stylua",
 
       -- python
-      "black",
-      "isort",
       "ty",
 
       -- shell
