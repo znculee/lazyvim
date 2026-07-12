@@ -21,7 +21,18 @@ return {
   opts = {
     interactions = {
       chat = {
-        adapter = "ollama",
+        adapter = "omlx",
+        roles = {
+          -- Show just the model name in the chat heading.
+          llm = function(adapter)
+            local model = adapter.model and adapter.model.name
+            if not model then
+              local default = adapter.schema and adapter.schema.model and adapter.schema.model.default
+              model = type(default) == "function" and adapter.formatted_name or default
+            end
+            return tostring(model or adapter.formatted_name)
+          end,
+        },
         slash_commands = {
           ["file"] = {
             callback = "interactions.chat.slash_commands.builtin.file",
@@ -37,26 +48,44 @@ return {
         },
       },
       inline = {
-        adapter = "ollama",
+        adapter = "omlx",
       },
       cmd = {
-        adapter = "ollama",
+        adapter = "omlx",
       },
     },
     adapters = {
-      ollama = function()
-        return require("codecompanion.adapters").extend("openai_compatible", {
-          name = "ollama",
-          env = {
-            url = "http://127.0.0.1:11434",
-          },
-          schema = {
-            model = {
-              default = os.getenv("CODECOMPANION_OLLAMA_MODEL"),
+      http = {
+        omlx = function()
+          return require("codecompanion.adapters").extend("openai_compatible", {
+            name = "omlx",
+            env = {
+              url = "http://127.0.0.1:8000",
+              api_key = "OMLX_API_KEY",
             },
-          },
-        })
-      end,
+            handlers = {
+              -- omlx streams reasoning tokens in a separate `reasoning_content`
+              -- delta field (DeepSeek-style). The base openai_compatible adapter
+              -- only reads `content`, so surface the reasoning here or it's dropped.
+              parse_message_meta = function(self, data)
+                local extra = data.extra
+                if extra and extra.reasoning_content then
+                  data.output.reasoning = { content = extra.reasoning_content }
+                  if data.output.content == "" then
+                    data.output.content = nil
+                  end
+                end
+                return data
+              end,
+            },
+            schema = {
+              model = {
+                default = os.getenv("CODECOMPANION_OMLX_MODEL"),
+              },
+            },
+          })
+        end,
+      },
     },
   },
   keys = {
