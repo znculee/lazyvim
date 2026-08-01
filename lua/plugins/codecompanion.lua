@@ -1,3 +1,13 @@
+local function ollama_adapter(opts)
+  return require("codecompanion.adapters").extend(
+    "ollama",
+    vim.tbl_deep_extend("force", {
+      env = { url = "http://127.0.0.1:11434" },
+      schema = { model = { default = os.getenv("CODECOMPANION_OLLAMA_MODEL") } },
+    }, opts or {})
+  )
+end
+
 return {
   "olimorris/codecompanion.nvim",
   event = "VeryLazy",
@@ -21,16 +31,11 @@ return {
   opts = {
     interactions = {
       chat = {
-        adapter = "omlx",
+        adapter = "ollama",
         roles = {
           -- Show just the model name in the chat heading.
           llm = function(adapter)
-            local model = adapter.model and adapter.model.name
-            if not model then
-              local default = adapter.schema and adapter.schema.model and adapter.schema.model.default
-              model = type(default) == "function" and adapter.formatted_name or default
-            end
-            return tostring(model or adapter.formatted_name)
+            return adapter.model and adapter.model.name or adapter.formatted_name
           end,
         },
         slash_commands = {
@@ -43,46 +48,24 @@ return {
             },
           },
         },
-        opts = {
-          system_prompt = "",
-        },
       },
       inline = {
-        adapter = "omlx",
+        adapter = "ollama_nothink",
       },
       cmd = {
-        adapter = "omlx",
+        adapter = "ollama_nothink",
       },
     },
     adapters = {
       http = {
-        omlx = function()
-          return require("codecompanion.adapters").extend("openai_compatible", {
-            name = "omlx",
-            env = {
-              url = "http://127.0.0.1:8000",
-              api_key = "OMLX_API_KEY",
-            },
-            handlers = {
-              -- omlx streams reasoning tokens in a separate `reasoning_content`
-              -- delta field (DeepSeek-style). The base openai_compatible adapter
-              -- only reads `content`, so surface the reasoning here or it's dropped.
-              parse_message_meta = function(self, data)
-                local extra = data.extra
-                if extra and extra.reasoning_content then
-                  data.output.reasoning = { content = extra.reasoning_content }
-                  if data.output.content == "" then
-                    data.output.content = nil
-                  end
-                end
-                return data
-              end,
-            },
-            schema = {
-              model = {
-                default = os.getenv("CODECOMPANION_OMLX_MODEL"),
-              },
-            },
+        ollama = function()
+          return ollama_adapter()
+        end,
+        -- Inline and cmd discard reasoning output, so don't pay to generate it.
+        ollama_nothink = function()
+          return ollama_adapter({
+            name = "ollama_nothink",
+            schema = { think = { default = false } },
           })
         end,
       },
