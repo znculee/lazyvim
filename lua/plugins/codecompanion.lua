@@ -1,11 +1,11 @@
-local function ollama_adapter(opts)
-  return require("codecompanion.adapters").extend(
-    "ollama",
-    vim.tbl_deep_extend("force", {
-      env = { url = "http://127.0.0.1:11434" },
-      schema = { model = { default = os.getenv("CODECOMPANION_OLLAMA_MODEL") } },
-    }, opts or {})
-  )
+local function ollama_adapter()
+  return require("codecompanion.adapters").extend("ollama", {
+    env = { url = "http://127.0.0.1:11434" },
+    schema = {
+      model = { default = os.getenv("CODECOMPANION_OLLAMA_MODEL") },
+      think = { default = false },
+    },
+  })
 end
 
 return {
@@ -50,23 +50,16 @@ return {
         },
       },
       inline = {
-        adapter = "ollama_nothink",
+        adapter = "ollama",
       },
       cmd = {
-        adapter = "ollama_nothink",
+        adapter = "ollama",
       },
     },
     adapters = {
       http = {
         ollama = function()
           return ollama_adapter()
-        end,
-        -- Inline and cmd discard reasoning output, so don't pay to generate it.
-        ollama_nothink = function()
-          return ollama_adapter({
-            name = "ollama_nothink",
-            schema = { think = { default = false } },
-          })
         end,
       },
     },
@@ -76,6 +69,7 @@ return {
     { "<leader>an", "<cmd>CodeCompanionChat<cr>", mode = { "n", "v" }, desc = "New Chat" },
     { "<leader>aa", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" }, desc = "Toggle Chat" },
     { "<leader>ac", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "Add Code to Chat" },
-    { "<leader>ai", "<cmd>CodeCompanion<cr>", mode = { "n", "v" }, desc = "Inline Prompt" },
+    { "<leader>ai", "<cmd>CodeCompanion<cr>", mode = "n", desc = "Inline Prompt" },
+    { "<leader>ai", ":CodeCompanion<cr>", mode = "x", desc = "Inline Prompt" },
   },
 }
