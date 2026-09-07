@@ -10,3 +10,12 @@ vim.keymap.set("n", "<leader>fp", function()
   vim.fn.setreg("+", vim.fn.expand("%:p"))
   print("Copied: " .. vim.fn.expand("%:p"))
 end, { desc = "Copy absolute file path" })
+
+vim.keymap.set("n", "<leader>fo", function()
+  local file = vim.fn.expand("%:p")
+  if file == "" then
+    vim.notify("No file for current buffer", vim.log.levels.WARN)
+    return
+  end
+  vim.ui.open(file)
+end, { desc = "Open file with system app" })
