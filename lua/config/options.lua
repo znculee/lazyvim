@@ -17,3 +17,8 @@ opt.smarttab = true
 opt.wrap = true
 opt.breakindent = true
 opt.textwidth = 79
+
+if vim.g.neovide then
+    vim.o.guifont = "FiraCode Nerd Font Mono:h12"
+    vim.g.neovide_theme = 'auto'
+end
