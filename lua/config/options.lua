@@ -20,6 +20,6 @@ opt.textwidth = 79
 opt.background = "dark"
 
 if vim.g.neovide then
-    vim.o.guifont = "FiraCode Nerd Font Mono:h12"
-    vim.g.neovide_theme = 'dark'
+  vim.o.guifont = "FiraCode Nerd Font Mono:h12"
+  vim.g.neovide_theme = "dark"
 end

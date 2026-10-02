@@ -19,3 +19,10 @@ vim.keymap.set("n", "<leader>fo", function()
   end
   vim.ui.open(file)
 end, { desc = "Open file with system app" })
+
+if vim.g.neovide then
+  -- https://github.com/neovide/neovide/issues/1263#issuecomment-1972013043
+  vim.keymap.set({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<D-v>", function()
+    vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+  end, { noremap = true, silent = true })
+end
